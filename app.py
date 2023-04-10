@@ -23,4 +23,4 @@ input = tokenizer(text, return_tensors="tf")
 
 if st.button("Submit", type="primary"):
     results = clf(text)[0]
-    st.write(f"The sentiment is {results}.")
+    st.write(f"This tweet is: {results}.")
