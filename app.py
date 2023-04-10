@@ -11,10 +11,10 @@ demo = """I'm so proud of myself for accomplishing my goals today. #motivation #
 
 text = st.text_area("Input text", demo, height=250)
 
-model_name = "distilbert-base-uncased-finetuned-sst-2-english"
+mod_name = "distilbert-base-uncased-finetuned-sst-2-english"
 
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(mod_name)
+model = AutoModelForSequenceClassification.from_pretrained(mod_name)
 clf = pipeline(
     "sentiment-analysis", model=model, tokenizer=tokenizer, return_all_scores=True
 )
