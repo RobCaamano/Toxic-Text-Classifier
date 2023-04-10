@@ -16,7 +16,7 @@ model_name = "cardiffnlp/twitter-roberta-base-sentiment"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
 clf = pipeline(
-    "toxicity-analysis", model=model, tokenizer=tokenizer, return_all_scores=True
+    "sentiment-analysis", model=model, tokenizer=tokenizer, return_all_scores=True
 )
 
 input = tokenizer(text, return_tensors="tf")
