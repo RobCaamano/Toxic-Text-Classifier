@@ -1,9 +1,9 @@
-from transformers import AutoTokenizer
 import streamlit as st
-from transformers import pipeline
+from transformers import AutoTokenizer
 from transformers import (
     TFAutoModelForSequenceClassification as AutoModelForSequenceClassification,
 )
+from transformers import pipeline
 
 st.title("Detecting Toxic Tweets")
 
