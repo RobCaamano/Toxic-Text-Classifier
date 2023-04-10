@@ -24,4 +24,4 @@ input = tokenizer(text, return_tensors="tf")
 if st.button("Submit", type="primary"):
     results = clf(text)[0]
     classes = dict(d.values() for d in results)
-    st.bar_chart(classes)
+    st.write(f"The sentiment is {results}.")
