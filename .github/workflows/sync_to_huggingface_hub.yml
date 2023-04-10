@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://RobCaamano:$HF_TOKEN@huggingface.co/spaces/RobCaamano/Finetuning_Language_Models-Toxic_Tweets main
+        run: git push --force https://RobCaamano:$HF_TOKEN@huggingface.co/spaces/RobCaamano/Finetuning_Language_Models-Toxic_Tweets main
