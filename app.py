@@ -4,11 +4,10 @@ from transformers import AutoTokenizer
 from transformers import (
     TFAutoModelForSequenceClassification as AutoModelForSequenceClassification,
 )
-from transformers import pipeline
 
 st.title("Detecting Toxic Tweets")
 
-demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
+demo = """I'm so proud of myself for accomplishing my goals today. #motivation #success"""
 
 text = st.text_area("Input text", demo, height=250)
 
@@ -29,15 +28,15 @@ if selected_model == "Fine-tuned Toxicity Model":
     toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
 
-clf = pipeline(
-    "text-classification", model=model, tokenizer=tokenizer, return_all_scores=True
-)
+def get_highest_toxicity_class(prediction):
+    max_index = prediction.argmax()
+    return model.config.id2label[max_index], prediction[max_index]
 
 input = tokenizer(text, return_tensors="tf")
+prediction = model(input)[0].numpy()[0]
 
 if st.button("Submit", type="primary"):
-    results = clf(text)[0]
-    max_class = max(results, key=lambda x: x["score"])
+    label, probability = get_highest_toxicity_class(prediction)
     
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
@@ -50,8 +49,8 @@ if st.button("Submit", type="primary"):
     df = pd.DataFrame(
         {
             "Tweet (portion)": [tweet_portion],
-            column_name: [max_class["label"]],
-            "Probability": [max_class["score"]],
+            column_name: [label],
+            "Probability": [probability],
         }
     )
     st.table(df)
