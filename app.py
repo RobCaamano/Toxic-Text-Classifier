@@ -11,7 +11,6 @@ demo = """I'm so proud of myself for accomplishing my goals today. #motivation #
 
 text = st.text_area("Input text", demo, height=250)
 
-# Add a drop-down menu for model selection
 model_options = {
     "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
     "Fine-tuned Toxicity Model": "RobCaamano/toxicity_distilbert",
@@ -23,7 +22,6 @@ mod_name = model_options[selected_model]
 tokenizer = AutoTokenizer.from_pretrained(mod_name)
 model = AutoModelForSequenceClassification.from_pretrained(mod_name)
 
-# Update the id2label mapping for the fine-tuned model
 if selected_model == "Fine-tuned Toxicity Model":
     toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
@@ -40,17 +38,19 @@ if st.button("Submit", type="primary"):
     
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
-    # Create and display the table
     if selected_model == "Fine-tuned Toxicity Model":
         column_name = "Highest Toxicity Class"
     else:
         column_name = "Prediction"
     
-    df = pd.DataFrame(
-        {
-            "Tweet (portion)": [tweet_portion],
-            column_name: [label],
-            "Probability": [probability],
-        }
-    )
-    st.table(df)
+    if probability < 0.1:
+        st.write("This tweet is not toxic.")
+    else:
+        df = pd.DataFrame(
+            {
+                "Tweet (portion)": [tweet_portion],
+                column_name: [label],
+                "Probability": [probability],
+            }
+        )
+        st.table(df)
