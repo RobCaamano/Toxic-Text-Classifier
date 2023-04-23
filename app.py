@@ -8,7 +8,7 @@ from transformers import pipeline
 
 st.title("Detecting Toxic Tweets")
 
-demo = """Your words are like poison. They seep into my mind and make me feel worthless"""
+demo = """I'm so proud of myself for accomplishing my goals today. #motivation #success"""
 
 text = st.text_area("Input text", demo, height=250)
 
@@ -31,7 +31,13 @@ input = tokenizer(text, return_tensors="tf")
 
 if st.button("Submit", type="primary"):
     results = clf(text)[0]
-    max_class = max(results, key=lambda x: x["score"])
+    
+    if selected_model == "Fine-tuned Toxicity Model":
+        max_class = max(results, key=lambda x: x["score"])
+        max_class["label"] = max_class["label"].split("_")[-1]  # Extract the toxicity class from the label
+    else:
+        max_class = max(results, key=lambda x: x["score"])
+
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
     
     # Create and display the table
