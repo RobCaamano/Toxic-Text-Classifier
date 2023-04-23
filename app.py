@@ -8,14 +8,14 @@ from transformers import pipeline
 
 st.title("Detecting Toxic Tweets")
 
-demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
+demo = """Your words are like poison. They seep into my mind and make me feel worthless"""
 
 text = st.text_area("Input text", demo, height=250)
 
 # Add a drop-down menu for model selection
 model_options = {
     "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
-    "Fine-tuned Toxicity Model": "https://huggingface.co/RobCaamano/toxicity_distilbert",
+    "Fine-tuned Toxicity Model": "RobCaamano/toxicity_distilbert",
 }
 selected_model = st.selectbox("Select Model", options=list(model_options.keys()))
 
