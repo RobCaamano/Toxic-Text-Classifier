@@ -28,29 +28,30 @@ if selected_model == "Fine-tuned Toxicity Model":
 
 def get_highest_toxicity_class(prediction):
     max_index = prediction.argmax()
-    return model.config.id2label[max_index], prediction[max_index]
+    max_value = prediction[max_index]
+    return [(model.config.id2label[i], pred_value) for i, pred_value in enumerate(prediction) if pred_value >= 0.5]
 
 input = tokenizer(text, return_tensors="tf")
 prediction = model(input)[0].numpy()[0]
 
 if st.button("Submit", type="primary"):
-    label, probability = get_highest_toxicity_class(prediction)
+    labels_with_probabilities = get_highest_toxicity_class(prediction)
     
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
     if selected_model == "Fine-tuned Toxicity Model":
-        column_name = "Highest Toxicity Class"
+        column_name = "Toxicity Classes"
     else:
         column_name = "Prediction"
 
-    if probability < 0.1:
+    if not labels_with_probabilities:
         st.write("This tweet is not toxic.")
-    
-    df = pd.DataFrame(
-        {
-            "Tweet (portion)": [tweet_portion],
-            column_name: [label],
-            "Probability": [probability],
-        }
-    )
-    st.table(df)
+    else:
+        df = pd.DataFrame(
+            {
+                "Tweet (portion)": [tweet_portion] * len(labels_with_probabilities),
+                column_name: [label for label, _ in labels_with_probabilities],
+                "Probability": [probability for _, probability in labels_with_probabilities],
+            }
+        )
+        st.table(df)
