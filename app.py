@@ -8,7 +8,7 @@ from transformers import pipeline
 
 st.title("Detecting Toxic Tweets")
 
-demo = """I'm so proud of myself for accomplishing my goals today. #motivation #success"""
+demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
 
 text = st.text_area("Input text", demo, height=250)
 
@@ -26,7 +26,8 @@ model = AutoModelForSequenceClassification.from_pretrained(mod_name)
 
 # Update the id2label mapping for the fine-tuned model
 if selected_model == "Fine-tuned Toxicity Model":
-    model.config.id2label = {i: f"LABEL_{i}" for i in range(model.config.num_labels)}
+    toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
+    model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
 
 clf = pipeline(
     "text-classification", model=model, tokenizer=tokenizer, return_all_scores=True
@@ -36,20 +37,20 @@ input = tokenizer(text, return_tensors="tf")
 
 if st.button("Submit", type="primary"):
     results = clf(text)[0]
+    max_class = max(results, key=lambda x: x["score"])
     
-    if selected_model == "Fine-tuned Toxicity Model":
-        max_class = max(results, key=lambda x: x["score"])
-        max_class["label"] = max_class["label"].split("_")[-1]  # Extract the toxicity class from the label
-    else:
-        max_class = max(results, key=lambda x: x["score"])
-
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
-    
+
     # Create and display the table
+    if selected_model == "Fine-tuned Toxicity Model":
+        column_name = "Highest Toxicity Class"
+    else:
+        column_name = "Prediction"
+    
     df = pd.DataFrame(
         {
             "Tweet (portion)": [tweet_portion],
-            "Highest Toxicity Class": [max_class["label"]],
+            column_name: [max_class["label"]],
             "Probability": [max_class["score"]],
         }
     )
