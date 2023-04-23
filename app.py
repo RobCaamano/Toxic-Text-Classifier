@@ -7,7 +7,7 @@ from transformers import (
 
 st.title("Detecting Toxic Tweets")
 
-demo = """I'm so proud of myself for accomplishing my goals today. #motivation #success"""
+demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
 
 text = st.text_area("Input text", demo, height=250)
 
@@ -42,15 +42,15 @@ if st.button("Submit", type="primary"):
         column_name = "Highest Toxicity Class"
     else:
         column_name = "Prediction"
-    
+
     if probability < 0.1:
         st.write("This tweet is not toxic.")
-    else:
-        df = pd.DataFrame(
-            {
-                "Tweet (portion)": [tweet_portion],
-                column_name: [label],
-                "Probability": [probability],
-            }
-        )
-        st.table(df)
+    
+    df = pd.DataFrame(
+        {
+            "Tweet (portion)": [tweet_portion],
+            column_name: [label],
+            "Probability": [probability],
+        }
+    )
+    st.table(df)
