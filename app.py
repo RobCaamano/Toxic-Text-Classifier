@@ -23,6 +23,11 @@ mod_name = model_options[selected_model]
 
 tokenizer = AutoTokenizer.from_pretrained(mod_name)
 model = AutoModelForSequenceClassification.from_pretrained(mod_name)
+
+# Update the id2label mapping for the fine-tuned model
+if selected_model == "Fine-tuned Toxicity Model":
+    model.config.id2label = {i: f"LABEL_{i}" for i in range(model.config.num_labels)}
+
 clf = pipeline(
     "text-classification", model=model, tokenizer=tokenizer, return_all_scores=True
 )
