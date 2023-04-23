@@ -31,7 +31,7 @@ def get_highest_toxicity_class(prediction):
     return model.config.id2label[max_index], prediction[max_index]
 
 input = tokenizer(text, return_tensors="tf")
-prediction = model(input, return_dict=True).logits.numpy()[0]
+prediction = model(input)[0].numpy()[0]
 
 if st.button("Submit", type="primary"):
     label, probability = get_highest_toxicity_class(prediction)
