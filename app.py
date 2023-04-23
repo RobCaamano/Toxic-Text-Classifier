@@ -1,9 +1,14 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from transformers import AutoTokenizer
 from transformers import (
     TFAutoModelForSequenceClassification as AutoModelForSequenceClassification,
 )
+
+def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum(axis=0)
 
 st.title("Detecting Toxic Tweets")
 
@@ -31,10 +36,11 @@ def get_highest_toxicity_class(prediction):
     return model.config.id2label[max_index], prediction[max_index]
 
 input = tokenizer(text, return_tensors="tf")
-prediction = model(input, return_dict=True).logits.numpy()[0]
+logits = model(input, return_dict=True).logits.numpy()[0]
+probabilities = softmax(logits)
 
 if st.button("Submit", type="primary"):
-    label, probability = get_highest_toxicity_class(prediction)
+    label, probability = get_highest_toxicity_class(probabilities)
     
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
