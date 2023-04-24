@@ -46,13 +46,13 @@ if st.button("Submit", type="primary"):
 
     if probability < 0.1:
         st.write("This tweet is not toxic.")
-    else:
-        df = pd.DataFrame(
-            {
-                "Tweet (portion)": [tweet_portion],
-                column_name: [label],
-                "Probability": [probability],
-            }
-        )
 
-        st.table(df)
+    df = pd.DataFrame(
+        {
+            "Tweet (portion)": [tweet_portion],
+            column_name: [label],
+            "Probability": [probability],
+        }
+    )
+
+    st.table(df)
