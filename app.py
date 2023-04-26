@@ -40,7 +40,7 @@ if st.button("Submit", type="primary"):
     
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
-    if selected_model in ["Fine-tuned Toxicity Model", "Fine-tuned Toxicity Model (RObert)"]:
+    if selected_model in ["Fine-tuned Toxicity Model", "Fine-tuned Toxicity Model RObert2"]:
         column_name = "Toxicity Class"
     else:
         column_name = "Prediction"
