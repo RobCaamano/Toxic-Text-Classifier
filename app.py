@@ -14,7 +14,8 @@ text = st.text_area("Input text", demo, height=250)
 model_options = {
     "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
     "Fine-tuned Toxicity Model": "RobCaamano/toxicity_distilbert",
-    "Fine-tuned Toxicity Model (RObert)": "RobCaamano/toxicity_RObert",  # Added new model option
+    "Fine-tuned Toxicity Model (RObert)": "RobCaamano/toxicity_RObert",
+    "Model 3.0": "RobCaamano/toxicity_RObert2"
 }
 selected_model = st.selectbox("Select Model", options=list(model_options.keys()))
 
