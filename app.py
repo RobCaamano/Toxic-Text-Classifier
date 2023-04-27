@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, pipeline
 from transformers import (
     TFAutoModelForSequenceClassification as AutoModelForSequenceClassification,
 )
@@ -21,6 +21,9 @@ mod_name = model_options[selected_model]
 
 tokenizer = AutoTokenizer.from_pretrained(mod_name)
 model = AutoModelForSequenceClassification.from_pretrained(mod_name)
+clf = pipeline(
+    "sentiment-analysis", model=model, tokenizer=tokenizer, return_all_scores=True
+)
 
 if selected_model in ["Fine-tuned Toxicity Model"]:
     toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
@@ -30,10 +33,10 @@ def get_toxicity_class(predictions, threshold=0.3):
     return {model.config.id2label[i]: pred for i, pred in enumerate(predictions) if pred >= threshold}
 
 input = tokenizer(text, return_tensors="tf")
-prediction = model(input)[0].numpy()[0]
 
 if st.button("Submit", type="primary"):
-    toxic_labels = get_toxicity_class(prediction)
+    results = dict(d.values() for d in clf(text)[0])
+    toxic_labels = {k: results[k] for k in results.keys() if not k == "toxic"}
 
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
