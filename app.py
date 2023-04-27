@@ -9,13 +9,12 @@ st.title("Detecting Toxic Tweets")
 
 demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
 
-text = st.text_area("Input text", demo, height=250)
+text = st.text_area("Input Text", demo, height=250)
 
 model_options = {
     "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
-    "Fine-tuned Toxicity Model": "RobCaamano/toxicity_distilbert",
-    "Fine-tuned Toxicity Model (RObert)": "RobCaamano/toxicity_RObert",
-    "Model 3.0": "RobCaamano/toxicity_RObert2"
+    "Fine-tuned Toxicity Model": "RobCaamano/toxicity",
+    "Fine-tuned Toxicity Model - Optimized": "RobCaamano/toxicity_optimized",
 }
 selected_model = st.selectbox("Select Model", options=list(model_options.keys()))
 
@@ -24,7 +23,7 @@ mod_name = model_options[selected_model]
 tokenizer = AutoTokenizer.from_pretrained(mod_name)
 model = AutoModelForSequenceClassification.from_pretrained(mod_name)
 
-if selected_model in ["Fine-tuned Toxicity Model", "Fine-tuned Toxicity Model (RObert)"]:
+if selected_model in ["Fine-tuned Toxicity Model", "Fine-tuned Toxicity Model - Optimized"]:
     toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
 
@@ -46,11 +45,11 @@ if st.button("Submit", type="primary"):
         column_name = "Prediction"
 
     if probability < 0.1:
-        st.write("This tweet is not toxic.")
+        st.write("This text is not toxic.")
 
     df = pd.DataFrame(
         {
-            "Tweet (portion)": [tweet_portion],
+            "Text (portion)": [tweet_portion],
             column_name: [label],
             "Probability": [probability],
         }
