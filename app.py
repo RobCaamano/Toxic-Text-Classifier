@@ -5,10 +5,23 @@ from transformers import (
     TFAutoModelForSequenceClassification as AutoModelForSequenceClassification,
 )
 
-st.title("Toxic Tweet Classifier")
+st.title("Classifier")
 
 demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
-text = st.text_area("Input text", demo, height=275)
+text = st.text_area("Input text", demo, height=250)
+
+demo_options = {
+    "non-toxic": "Had a wonderful weekend at the park. Enjoyed the beautiful weather!",
+    "toxic": "WIP",
+    "severe_toxic": "WIP",
+    "obscene": "I don't give a fuck about your opinion",
+    "threat": "WIP",
+    "insult": "Are you always this incompetent?",
+    "identity_hate": "WIP",
+}
+
+selected_demo = st.selectbox("Demos", options=list(demo_options.keys()))
+text = st.text_area("Input text", demo_options[selected_demo], height=250)
 
 submit = False
 model_name = ""
@@ -39,13 +52,13 @@ if submit:
 
         if results['toxic'] >= 0.5:
             result_df = pd.DataFrame({
-                'Toxic': ['Yes'],
+                'Toxic': 'Yes',
                 'Toxicity Class': [max_class],
                 'Probability': [probability]
             })
         else:
             result_df = pd.DataFrame({
-                'Toxic': ['No'],
+                'Toxic': 'No',
                 'Toxicity Class': 'This text is not toxic',
             })
 
