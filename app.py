@@ -53,9 +53,9 @@ if submit:
         st.write(f"#### **{classes[max_class]:.2f}%**")
 
     if results["toxic"] < 0.5:
-        st.success("This tweet is unlikely to be be toxic!", icon=":white_check_mark:")
+        st.success("This tweet is unlikely to be be toxic!")
     else:
-        st.warning('This tweet is likely to be toxic.', icon=":warning:")
+        st.warning('This tweet is likely to be toxic.')
     
     expander = st.expander("Raw output")
     expander.write(results)
