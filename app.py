@@ -19,7 +19,7 @@ with st.container():
         "Select the model you want to use below.",
         ("RobCaamano/toxicity",),
     )
-    submit = st.button("Submit", type="primary", use_container_width=True)
+    submit = st.button("Submit", type="primary")
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
