@@ -26,7 +26,7 @@ if selected_model in ["Fine-tuned Toxicity Model"]:
     toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
 
-def get_toxicity_class(predictions, threshold=0.5):
+def get_toxicity_class(predictions, threshold=0.3):
     return {model.config.id2label[i]: pred for i, pred in enumerate(predictions) if pred >= threshold}
 
 input = tokenizer(text, return_tensors="tf")
