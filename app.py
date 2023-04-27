@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from transformers import AutoTokenizer
 from transformers import (
     TFAutoModelForSequenceClassification as AutoModelForSequenceClassification,
@@ -31,13 +32,6 @@ with col1:
     st.subheader("Tweet")
     text = st.text_area("Input text", demo, height=275)
 
-with col2:
-    st.subheader("Classification")
-
-with col3:
-    st.subheader("Probability")
-
-
 input = tokenizer(text, return_tensors="tf")
 
 if submit:
@@ -45,17 +39,15 @@ if submit:
     classes = {k: results[k] for k in results.keys() if not k == "toxic"}
 
     max_class = max(classes, key=classes.get)
+    probability = classes[max_class]
 
-    with col2:
-        st.write(f"#### {max_class}")
+    result_df = pd.DataFrame({
+        'Classification': [max_class],
+        'Probability': [probability],
+        'Toxic': ['Yes' if results['toxic'] >= 0.5 else 'No']
+    })
 
-    with col3:
-        st.write(f"#### **{classes[max_class]:.2f}%**")
+    st.table(result_df)
 
-    if results["toxic"] < 0.5:
-        st.success("This tweet is unlikely to be be toxic!")
-    else:
-        st.warning('This tweet is likely to be toxic.')
-    
     expander = st.expander("Raw output")
     expander.write(results)
