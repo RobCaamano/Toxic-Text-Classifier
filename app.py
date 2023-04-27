@@ -26,32 +26,25 @@ if selected_model in ["Fine-tuned Toxicity Model"]:
     toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
 
-def get_toxicity_class(prediction):
-    max_index = prediction.argmax()
-    return model.config.id2label[max_index], prediction[max_index]
+def get_toxicity_class(predictions, threshold=0.5):
+    return {model.config.id2label[i]: pred for i, pred in enumerate(predictions) if pred >= threshold}
 
 input = tokenizer(text, return_tensors="tf")
 prediction = model(input)[0].numpy()[0]
 
 if st.button("Submit", type="primary"):
-    label, probability = get_toxicity_class(prediction)
-    
+    toxic_labels = get_toxicity_class(prediction)
+
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
-    if selected_model in ["Fine-tuned Toxicity Model"]:
-        column_name = "Toxicity Class"
-    else:
-        column_name = "Prediction"
-
-    if probability < 0.1:
+    if len(toxic_labels) == 0:
         st.write("This text is not toxic.")
-
-    df = pd.DataFrame(
-        {
-            "Text (portion)": [tweet_portion],
-            column_name: [label],
-            "Probability": [probability],
-        }
-    )
-
-    st.table(df)
+    else:
+        df = pd.DataFrame(
+            {
+                "Text (portion)": [tweet_portion] * len(toxic_labels),
+                "Toxicity Class": list(toxic_labels.keys()),
+                "Probability": list(toxic_labels.values()),
+            }
+        )
+        st.table(df)
