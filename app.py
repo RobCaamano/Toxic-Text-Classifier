@@ -14,7 +14,6 @@ text = st.text_area("Input Text", demo, height=250)
 model_options = {
     "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
     "Fine-tuned Toxicity Model": "RobCaamano/toxicity",
-    "Fine-tuned Toxicity Model - Optimized": "RobCaamano/toxicity_optimized",
 }
 selected_model = st.selectbox("Select Model", options=list(model_options.keys()))
 
@@ -23,7 +22,7 @@ mod_name = model_options[selected_model]
 tokenizer = AutoTokenizer.from_pretrained(mod_name)
 model = AutoModelForSequenceClassification.from_pretrained(mod_name)
 
-if selected_model in ["Fine-tuned Toxicity Model", "Fine-tuned Toxicity Model - Optimized"]:
+if selected_model in ["Fine-tuned Toxicity Model"]:
     toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
 
@@ -39,7 +38,7 @@ if st.button("Submit", type="primary"):
     
     tweet_portion = text[:50] + "..." if len(text) > 50 else text
 
-    if selected_model in ["Fine-tuned Toxicity Model", "Model 3.0"]:
+    if selected_model in ["Fine-tuned Toxicity Model"]:
         column_name = "Toxicity Class"
     else:
         column_name = "Prediction"
