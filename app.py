@@ -1,56 +1,61 @@
 import streamlit as st
-import pandas as pd
-from transformers import AutoTokenizer, pipeline
+from transformers import AutoTokenizer
 from transformers import (
     TFAutoModelForSequenceClassification as AutoModelForSequenceClassification,
 )
+from transformers import pipeline
 
-st.title("Detecting Toxic Tweets")
+st.title("Toxic Tweet Classifier")
 
 demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
 
-text = st.text_area("Input Text", demo, height=250)
+text = ""
+submit = False
+model_name = ""
+col1, col2, col3 = st.columns([2,1,1])
 
-model_options = {
-    "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
-    "Fine-tuned Toxicity Model": "RobCaamano/toxicity",
-}
-selected_model = st.selectbox("Select Model", options=list(model_options.keys()))
+with st.container():
+    model_name = st.selectbox(
+        "Select the model you want to use below.",
+        ("RobCaamano/toxicity",),
+    )
+    submit = st.button("Submit", type="primary", use_container_width=True)
 
-mod_name = model_options[selected_model]
-
-tokenizer = AutoTokenizer.from_pretrained(mod_name)
-model = AutoModelForSequenceClassification.from_pretrained(mod_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(model_name)
 clf = pipeline(
     "sentiment-analysis", model=model, tokenizer=tokenizer, return_all_scores=True
 )
 
-if selected_model in ["Fine-tuned Toxicity Model"]:
-    toxicity_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
-    model.config.id2label = {i: toxicity_classes[i] for i in range(model.config.num_labels)}
+with col1:
+    st.subheader("Tweet")
+    text = st.text_area("Input text", demo, height=275)
 
-def get_most_toxic_class(predictions):
-    return {model.config.id2label[i]: pred for i, pred in enumerate(predictions)}
+with col2:
+    st.subheader("Classification")
+
+with col3:
+    st.subheader("Probability")
+
 
 input = tokenizer(text, return_tensors="tf")
 
-if st.button("Submit", type="primary"):
+if submit:
     results = dict(d.values() for d in clf(text)[0])
-    toxic_labels = get_most_toxic_class(results)
+    classes = {k: results[k] for k in results.keys() if not k == "toxic"}
 
-    tweet_portion = text[:50] + "..." if len(text) > 50 else text
+    max_class = max(classes, key=classes.get)
 
-    if len(toxic_labels) == 0:
-        st.write("This text is not toxic.")
+    with col2:
+        st.write(f"#### {max_class}")
+
+    with col3:
+        st.write(f"#### **{classes[max_class]:.2f}%**")
+
+    if results["toxic"] < 0.5:
+        st.success("This tweet is unlikely to be be toxic!", icon=":white_check_mark:")
     else:
-        max_toxic_class = max(toxic_labels, key=toxic_labels.get)
-        max_probability = toxic_labels[max_toxic_class]
-
-        df = pd.DataFrame(
-            {
-                "Text (portion)": [tweet_portion],
-                "Toxicity Class": [max_toxic_class],
-                "Probability": [max_probability],
-            }
-        )
-        st.table(df)
+        st.warning('This tweet is likely to be toxic.', icon=":warning:")
+    
+    expander = st.expander("Raw output")
+    expander.write(results)
