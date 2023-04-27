@@ -9,11 +9,10 @@ from transformers import pipeline
 st.title("Toxic Tweet Classifier")
 
 demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
+text = st.text_area("Input text", demo, height=275)
 
-text = ""
 submit = False
 model_name = ""
-col1, col2, col3 = st.columns([2,1,1])
 
 with st.container():
     model_name = st.selectbox(
@@ -28,10 +27,6 @@ clf = pipeline(
     "sentiment-analysis", model=model, tokenizer=tokenizer, return_all_scores=True
 )
 
-with col1:
-    st.subheader("Tweet")
-    text = st.text_area("Input text", demo, height=275)
-
 input = tokenizer(text, return_tensors="tf")
 
 if submit:
@@ -42,9 +37,9 @@ if submit:
     probability = classes[max_class]
 
     result_df = pd.DataFrame({
+        'Toxic': ['Yes' if results['toxic'] >= 0.5 else 'No'],
         'Classification': [max_class],
-        'Probability': [probability],
-        'Toxic': ['Yes' if results['toxic'] >= 0.5 else 'No']
+        'Probability': [probability]
     })
 
     st.table(result_df)
