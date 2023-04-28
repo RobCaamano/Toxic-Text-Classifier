@@ -8,12 +8,12 @@ from transformers import (
 st.title("Classifier")
 
 demo_options = {
-    "non-toxic": "Had a wonderful weekend at the park. Enjoyed the beautiful weather!",
-    "severe_toxic": "WIP",
-    "obscene": "I don't give a fuck about your opinion",
-    "threat": "WIP",
-    "insult": "Are you always this incompetent?",
-    "identity_hate": "WIP",
+    "Non-toxic": "Had a wonderful weekend at the park. Enjoyed the beautiful weather!",
+    "Severe-toxic": "WIP",
+    "Obscene": "I don't give a fuck about your opinion",
+    "Threat": "WIP",
+    "Insult": "Are you always this incompetent?",
+    "Identity Hate": "WIP",
 }
 
 selected_demo = st.selectbox("Demos", options=list(demo_options.keys()))
