@@ -24,6 +24,7 @@ model_name = ""
 
 model_mapping = {
     "Toxicity": "RobCaamano/toxicity",
+    "Toxicity 2": "RobCaamano/toxicity_distilbert",
     "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
 }
 
@@ -46,7 +47,7 @@ input = tokenizer(text, return_tensors="tf")
 if submit:
     results = dict(d.values() for d in clf(text)[0])
 
-    if model_name == "RobCaamano/toxicity":
+    if model_name in ["RobCaamano/toxicity", "RobCaamano/toxicity_distilbert"]:
         classes = {k: results[k] for k in results.keys() if not k == "toxic"}
 
         max_class = max(classes, key=classes.get)
