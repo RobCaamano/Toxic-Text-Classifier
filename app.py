@@ -22,11 +22,17 @@ text = st.text_area("Input text", demo_options[selected_demo], height=250)
 submit = False
 model_name = ""
 
+model_mapping = {
+    "Toxicity": "RobCaamano/toxicity",
+    "DistilBERT Base Uncased (SST-2)": "distilbert-base-uncased-finetuned-sst-2-english",
+}
+
 with st.container():
-    model_name = st.selectbox(
+    selected_model_display = st.selectbox(
         "Select Model",
-        ("RobCaamano/toxicity", "distilbert-base-uncased-finetuned-sst-2-english"),
+        options=list(model_mapping.keys())
     )
+    model_name = model_mapping[selected_model_display]
     submit = st.button("Submit", type="primary")
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
