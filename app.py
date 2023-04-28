@@ -52,12 +52,12 @@ if submit:
                 'Toxic': 'Yes',
                 'Toxicity Class': [max_class],
                 'Probability': [probability]
-            })
+            }, index=[0])
         else:
             result_df = pd.DataFrame({
                 'Toxic': 'No',
                 'Toxicity Class': 'This text is not toxic',
-            })
+            }, index=[0])
 
     elif model_name == "distilbert-base-uncased-finetuned-sst-2-english":
         result = max(results, key=results.get)
@@ -66,7 +66,7 @@ if submit:
         result_df = pd.DataFrame({
             'Result': [result],
             'Probability': [probability],
-        })
+        }, index=[0])
 
     st.table(result_df)
 
