@@ -7,8 +7,6 @@ from transformers import (
 
 st.title("Classifier")
 
-demo = """Your words are like poison. They seep into my mind and make me feel worthless."""
-
 demo_options = {
     "non-toxic": "Had a wonderful weekend at the park. Enjoyed the beautiful weather!",
     "toxic": "WIP",
@@ -20,7 +18,7 @@ demo_options = {
 }
 
 selected_demo = st.selectbox("Demos", options=list(demo_options.keys()))
-text = st.text_area("Input text", demo_options[selected_demo] if selected_demo else demo, height=250)
+text = st.text_area("Input text", demo_options[selected_demo], height=250)
 
 submit = False
 model_name = ""
