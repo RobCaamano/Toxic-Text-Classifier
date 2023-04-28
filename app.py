@@ -9,7 +9,6 @@ st.title("Classifier")
 
 demo_options = {
     "non-toxic": "Had a wonderful weekend at the park. Enjoyed the beautiful weather!",
-    "toxic": "WIP",
     "severe_toxic": "WIP",
     "obscene": "I don't give a fuck about your opinion",
     "threat": "WIP",
