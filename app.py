@@ -9,11 +9,10 @@ st.title("Classifier")
 
 demo_options = {
     "Non-toxic": "Had a wonderful weekend at the park. Enjoyed the beautiful weather!",
-    "Severe-toxic": "WIP",
     "Obscene": "I don't give a fuck about your opinion",
-    "Threat": "WIP",
+    "Threat": "I will find and kill you",
     "Insult": "Are you always this incompetent?",
-    "Identity Hate": "WIP",
+    "Identity Hate": "Gays are disgusting. It's just my opinion but gays are disgusting.",
 }
 
 selected_demo = st.selectbox("Demos", options=list(demo_options.keys()))
