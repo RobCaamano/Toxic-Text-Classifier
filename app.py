@@ -11,8 +11,8 @@ demo_options = {
     "Non-toxic": "Had a wonderful weekend at the park. Enjoyed the beautiful weather!",
     "Obscene": "I don't give a fuck about your opinion",
     "Threat": "I will find and kill you",
-    "Insult": "Are you always this incompetent?",
-    "Identity Hate": "Gays are disgusting. It's just my opinion but gays are disgusting.",
+    "Insult": "You are so stupid",
+    "Identity Hate": "I hate gay people. Its just my opinion.",
 }
 
 selected_demo = st.selectbox("Demos", options=list(demo_options.keys()))
