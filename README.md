@@ -15,7 +15,7 @@ pinned: false
 https://sites.google.com/view/detecting-toxicity-in-text/home
 
 # Documentation
-### Train.py
+### train_weighted.py
 This code is for training a multi-label text classification model to detect different types of toxic comments, using the TensorFlow library along with the Hugging Face Transformers library. It first imports the required libraries and sets up GPU support if available.
 
 1. Import the necessary libraries and modules.
