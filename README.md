@@ -12,7 +12,7 @@ pinned: false
 # Finetuning_Language_Models-Toxic_Tweets
 
 # App Landing Page
-https://sites.google.com/view/detecting-toxicity-in-text/home
+[link](https://sites.google.com/view/detecting-toxicity-in-text/home)
 
 # Documentation
 ### train_weighted.py
