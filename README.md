@@ -11,11 +11,13 @@ Text
 
 ### <ins> Available Models </ins>
 
-- **Bullet:**
+- **Toxicity -1 Epoch**
 
-- **Bullet:**
+- **Toxicity -8 Epochs**
 
-- **Bullet:**
+- **Toxicity - Weighted**
+
+- **DistilBERT Base Uncased (SST-2)**
 
 ## Demo Site <a id="demo"></a>
 
