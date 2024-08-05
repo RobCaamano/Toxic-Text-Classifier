@@ -7,13 +7,12 @@
 
 ## About <a id="about"></a>
 
-The Toxic Text Classifier is a tool designed to analyze and categorize text into various toxicity levels. This project utilizes a fine-tuned BERT model for text classification, leveraging TensorFlow and Hugging Face Transformers for NLP capabilities.
+The Toxic Text Classifier is a user-friendly web application built with Streamlit that is designed to analyze and categorize text through toxicity classification and sentiment analysis. This project utilizes a fine-tuned BERT model for text classification, leveraging TensorFlow and Hugging Face Transformers for NLP capabilities.
 
 ### <ins> Classification Categories </ins>
 
 | Toxic | Severe Toxic | Obscene | Threat | Insult | Identity Hate |
 | -------- | -------- | -------- | -------- | -------- | -------- |
-
 
 ### <ins> Available Models </ins>
 
@@ -27,6 +26,6 @@ The site includes various pre-trained models with different levels of training a
 
 - **[DistilBERT Base Uncased (SST-2)](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)**
 
-## Demo Site <a id="demo"></a>
+## Hugging Face Space <a id="demo"></a>
 
-[link](https://sites.google.com/view/detecting-toxicity-in-text/home)
+This [Hugging Face Space](https://huggingface.co/spaces/RobCaamano/Finetuning_Language_Models-Toxic_Tweets) is best used within my web app. The models can also be downloaded from my [Hugging Face Profile](https://huggingface.co/RobCaamano).
