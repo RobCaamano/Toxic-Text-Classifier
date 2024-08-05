@@ -29,7 +29,7 @@ The site includes various pre-trained models with different levels of training a
 
 ## How to use: <a id="usage"></a>
 
-1. Navigate to the web app homepage
+1. Navigate to the [web app homepage](https://sites.google.com/view/detecting-toxicity-in-text/home)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Note:** It may take a moment for the streamlit app to load
 
