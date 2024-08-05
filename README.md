@@ -31,7 +31,7 @@ The site includes various pre-trained models with different levels of training a
 
 1. Navigate to the [web app homepage](https://sites.google.com/view/detecting-toxicity-in-text/home)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Note:** It may take a moment for the streamlit app to load
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Note:** It may take a moment for the streamlit app to load
 
 3. Select a demo to view an example of a certain type of toxicity in action
 
