@@ -33,7 +33,7 @@ The site includes various pre-trained models with different levels of training a
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Note:** It may take a moment for the streamlit app to load
 
-3. Select a demo to view an example of a certain type of toxicity in action
+3. Select a demo to view an example of a certain type of toxicity in action OR type in custom text
 
 4. Type the text you want to analyze for toxicity
 
