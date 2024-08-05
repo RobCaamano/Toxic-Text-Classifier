@@ -9,7 +9,7 @@
 
 The Toxic Text Classifier is a tool designed to analyze and categorize text into various toxicity levels. This project utilizes a fine-tuned BERT model for text classification, leveraging TensorFlow and Hugging Face Transformers for NLP capabilities.
 
-| Classification Categories |  |  |  |  |  |
+| |  |  |  |  |  |
 | -------- | -------- | -------- | -------- | -------- | -------- |
 | Toxic | Severe Toxic | Obscene | Threat | Insult | Identity Hate |
 
