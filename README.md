@@ -9,7 +9,7 @@
 
 Text
 
-### <ind> Available Models </ind>
+### <ins> Available Models </ins>
 
 - **Bullet:**
 
