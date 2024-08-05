@@ -17,7 +17,7 @@ Text
 
 - **[Toxicity - Weighted](https://huggingface.co/RobCaamano/toxicity_weighted)**
 
-- **DistilBERT Base Uncased (SST-2)**
+- **[DistilBERT Base Uncased (SST-2)](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)**
 
 ## Demo Site <a id="demo"></a>
 
