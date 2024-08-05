@@ -13,6 +13,10 @@ The Toxic Text Classifier is a tool designed to analyze and categorize text into
 | -------- | -------- | -------- | -------- | -------- | -------- |
 | Toxic | Severe Toxic | Obscene | Threat | Insult | Identity Hate |
 
+| Toxic | Severe Toxic | Obscene | Threat | Insult | Identity Hate |
+| -------- | -------- | -------- | -------- | -------- | -------- |
+
+
 ### <ins> Available Models </ins>
 
 The site includes various pre-trained models with different levels of training and weighting:
