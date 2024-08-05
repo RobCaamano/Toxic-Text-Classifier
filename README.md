@@ -17,7 +17,7 @@ The Toxic Text Classifier is a user-friendly web application built with Streamli
 
 ### <ins> Available Models </ins>
 
-The site includes various pre-trained models with different levels of training and weighting:
+The site includes various pre-trained models with different levels of training and weighting. This shows my development progress and the implementation of class weights for higher accuracy:
 
 - **Toxicity - 1 Epoch**
 
