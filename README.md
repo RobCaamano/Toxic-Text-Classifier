@@ -11,11 +11,11 @@ Text
 
 ### <ins> Available Models </ins>
 
-- **Toxicity -1 Epoch**
+- **Toxicity - 1 Epoch**
 
-- **Toxicity -8 Epochs**
+- **Toxicity - 8 Epochs**
 
-- **Toxicity - Weighted**
+- **[Toxicity - Weighted](https://huggingface.co/RobCaamano/toxicity_weighted)**
 
 - **DistilBERT Base Uncased (SST-2)**
 
