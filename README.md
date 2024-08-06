@@ -3,8 +3,9 @@
 ## Sections
 
 - [About](#about)
+- [Example Output](#example)
 - [How to Use](#usage)
-- [Hugging Face Space](#space)
+- [Hugging Face](#space)
 
 ## About <a id="about"></a>
 
@@ -27,6 +28,11 @@ The site includes various pre-trained models with different levels of training a
 
 - **[DistilBERT Base Uncased (SST-2)](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)**
 
+## Example Output <a id="example"></a>
+
+<img src="https://github.com/user-attachments/assets/61abe86c-306f-4d21-95dd-8f81b75053a0" alt="Output" width="400" height=600/>
+
+
 ## How to use: <a id="usage"></a>
 
 1. Navigate to the [web app homepage](https://sites.google.com/view/detecting-toxicity-in-text/home)
@@ -43,6 +49,6 @@ The site includes various pre-trained models with different levels of training a
 
 6. Hit the submit button to view the output
 
-## Hugging Face Space <a id="space"></a>
+## Hugging Face <a id="space"></a>
 
 This [Hugging Face Space](https://huggingface.co/spaces/RobCaamano/Finetuning_Language_Models-Toxic_Tweets) is best used within my web app. The models can also be downloaded from my [Hugging Face Profile](https://huggingface.co/RobCaamano).
