@@ -33,7 +33,9 @@ The site includes various pre-trained models with different levels of training a
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Note:** It may take a moment for the streamlit app to load
 
-3. Type in custom text <ins>**OR**</ins> Select a demo to view an example of a certain type of toxicity in action
+3. Select a demo to view an example of a certain type of toxicity in action
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**OR**
 
 4. Type the text you want to analyze for toxicity
 
